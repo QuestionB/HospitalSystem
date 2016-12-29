@@ -1,0 +1,136 @@
+package client;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.net.Socket;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
+import java.util.Scanner;
+
+
+public class Client {
+	 static String host = "192.168.226.1";  //要连接的服务端IP地址  
+     static int port = 8877;   //要连接的服务端对应的监听端口  
+     //与服务端建立连接  
+	public static void main(String[] args) throws  IOException {
+		// TODO Auto-generated method stub
+		
+		patient_window s=null;
+	s.main(args);
+				
+			System.out.println(x)	;
+				
+		login("liujianlong20","12354",3);
+		addUser("liujianlong20","1234",2,1);
+        order("fucker",1,2);
+     
+		   }  
+	
+	
+
+	 public static void addUser(String name,String passWord,int i,int tN) throws IOException {  //病人注册 类型号1
+		
+		    
+		     Socket client = new Socket(host, port);  
+		      //建立连接后就可以往服务端写数据了  
+		     Writer writer = new OutputStreamWriter(client.getOutputStream());  
+		      writer.write(name+","+passWord+","+i+","+tN);  writer.flush();  
+		      writer.write("eof\n");  
+		      writer.flush();  
+		      //写完以后进行读操作  
+		     BufferedReader br = new BufferedReader(new InputStreamReader(client.getInputStream()));  
+		      StringBuffer sb = new StringBuffer();  
+		      String temp;  
+		      int index;  
+		     // System.out.println("from server: " + sb);  
+		      while ((temp=br.readLine()) != null) {  
+		         if ((index = temp.indexOf("eof")) != -1) {  
+		            sb.append(temp.substring(0, index));  
+		            break;  
+		         }  
+		         sb.append(temp);  
+		      }  
+		      System.out.println("服务端: " + sb);  
+		      writer.close();  
+		      br.close();  
+		      client.close();  
+	 }
+	
+	 public static void order(String name,int order,int tN) throws IOException {//病人预约   类型号2
+		 
+		 
+	      //为了简单起见，所有的异常都直接往外抛  
+		    
+		     Socket client = new Socket(host, port);  
+		      //建立连接后就可以往服务端写数据了  
+		     Writer writer = new OutputStreamWriter(client.getOutputStream());  
+		      writer.write(name+","+order+","+","+tN);  writer.flush();  //把预约信息传给服务器端
+		      writer.write("eof\n");  
+		      writer.flush();  
+		      //写完以后进行读操作  
+		     BufferedReader br = new BufferedReader(new InputStreamReader(client.getInputStream()));  
+		      StringBuffer sb = new StringBuffer();  
+		      String temp;  
+		      int index;  
+		     // System.out.println("from server: " + sb);  
+		      while ((temp=br.readLine()) != null) {  
+		         if ((index = temp.indexOf("eof")) != -1) {  
+		            sb.append(temp.substring(0, index));  
+		            break;  
+		         }  
+		         sb.append(temp);  
+		      }  
+		      System.out.println("服务端: " + sb);  
+		      writer.close();  
+		      br.close();  
+		      client.close();  
+	 }
+	
+
+public static void login(String name,String passWord,int tN) throws IOException {//病人客户端登陆 类型号3
+		
+		    
+		     Socket client = new Socket(host, port);  
+		      //建立连接后就可以往服务端写数据了  
+		     Writer writer = new OutputStreamWriter(client.getOutputStream());  
+		      writer.write(name+","+passWord+","+","+tN);  writer.flush();  
+		      writer.write("eof\n");  
+		      writer.flush();  
+		      //写完以后进行读操作  
+		     BufferedReader br = new BufferedReader(new InputStreamReader(client.getInputStream()));  
+		      StringBuffer sb = new StringBuffer();  
+		      String temp;  
+		      int index;  
+		     // System.out.println("from server: " + sb);  
+		      while ((temp=br.readLine()) != null) {  
+		         if ((index = temp.indexOf("eof")) != -1) {  
+		            sb.append(temp.substring(0, index));  
+		            break;  
+		         }  
+		         sb.append(temp);  
+		      }  
+		      System.out.println("服务端: " + sb);  
+		      writer.close();  
+		      br.close();  
+		      client.close();  
+	 }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		}  

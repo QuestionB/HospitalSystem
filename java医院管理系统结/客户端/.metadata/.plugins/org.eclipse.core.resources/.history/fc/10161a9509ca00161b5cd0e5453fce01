@@ -1,0 +1,359 @@
+package client;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
+import java.awt.Rectangle;
+import java.awt.Color;
+import java.awt.Dimension;
+import javax.swing.SwingConstants;
+import java.awt.Font;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.JTextField;
+import java.awt.SystemColor;
+import javax.swing.UIManager;
+import java.awt.Cursor;
+import javax.swing.JPasswordField;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.net.Socket;
+import java.awt.event.ActionEvent;
+import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.border.MatteBorder;
+
+public class patient_window {
+	
+	private  JFrame frame;
+	private  JTextField textField;
+	private  JPasswordField passwordField;
+	 public static  String patient_name;
+	 private JTextField textField_1;
+	 private JTextField textField_2;
+	 private JTextField textField_3;
+	 
+
+	 public static void set(String x){
+		 
+		 patient_name=x;
+	 }
+	 
+	 
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try { 
+					
+					 //String x=initialize();
+					
+					//System.out.println(x);
+					patient_window window = new patient_window();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public patient_window() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private  void initialize() { 
+		frame = new JFrame();
+		frame.setFont(new Font("Dialog", Font.PLAIN, 17));
+		frame.setTitle("\u5BA2\u6237\u7AEF");
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\liujianlong\\Desktop\\\u5BA2\u6237\u7AEF\\image\\1.jpg"));
+		frame.setBounds(600, 200, 800, 600);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		
+		textField = new JTextField();
+		textField.setBounds(358, 349, 164, 24);
+		frame.getContentPane().add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblLabel = new JLabel("\u8D26\u53F7\uFF1A");
+		lblLabel.setBorder(null);
+		lblLabel.setFont(new Font("宋体", Font.PLAIN, 17));
+		lblLabel.setForeground(Color.BLACK);
+		lblLabel.setHorizontalTextPosition(SwingConstants.LEFT);
+		lblLabel.setBackground(Color.GREEN);
+		lblLabel.setBounds(289, 349, 64, 24);
+		frame.getContentPane().add(lblLabel);
+		
+		passwordField = new JPasswordField();
+		passwordField.setBounds(358, 387, 164, 24);
+		frame.getContentPane().add(passwordField);
+		
+		JLabel lblNewLabel_1 = new JLabel("\u5BC6\u7801\uFF1A");
+		lblNewLabel_1.setFont(new Font("宋体", Font.PLAIN, 17));
+		lblNewLabel_1.setBounds(289, 386, 52, 24);
+		frame.getContentPane().add(lblNewLabel_1);
+		
+		JButton btnNewButton_1 = new JButton("\u6CE8\u518C");//预先声明
+		JLabel lblNewLabel_2 = new JLabel("test");
+		JLabel lblNewLabel = new JLabel("");
+		JLabel lblNewLabel_5 = new JLabel("\u9884\u7EA6\u65F6\u95F4\uFF1A");
+		lblNewLabel_5.setVisible(false);
+		JLabel lblNewLabel_6 = new JLabel("\u9009\u62E9\u79D1\u5BA4\uFF1A");
+		JLabel lblNewLabel_7 = new JLabel("New label");
+		JLabel lblNewLabel_8 = new JLabel("");
+		JButton button = new JButton("\u6211\u8981\u9884\u7EA6");
+		textField_3 = new JTextField();
+		textField_3.setVisible(false);
+		textField_1 = new JTextField();
+		textField_1.setVisible(false);
+		textField_2 = new JTextField();
+		textField_2.setVisible(false);
+		JLabel lblNewLabel_4 = new JLabel("\u5206");
+		JLabel label_1 = new JLabel("\u65F6");
+		JLabel label = new JLabel("\u65E5");
+		JComboBox comboBox = new JComboBox();
+		
+		
+		JButton btnNewButton = new JButton("\u767B\u5F55");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				 int x=0;
+				try {
+					
+					x=Client.login(textField.getText(),String.valueOf(passwordField.getPassword()),3);//登陆
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if(x==1){//登陆成功
+				textField.setVisible(false);
+				lblLabel.setVisible(false); 
+				passwordField.setVisible(false);
+				lblNewLabel_1.setVisible(false); 
+				btnNewButton.setVisible(false); 
+				btnNewButton_1.setVisible(false);				
+				lblNewLabel.setVisible(false);
+				lblNewLabel_2.setVisible(false);
+				
+				lblNewLabel_5.setVisible(true);//新页面预约
+				lblNewLabel_6.setVisible(true);
+				//lblNewLabel_7.setVisible(true);
+				//lblNewLabel_8.setVisible(true);
+				button.setVisible(true);
+				textField_3.setVisible(true);
+				textField_1.setVisible(true);
+				textField_2.setVisible(true);
+				lblNewLabel_4.setVisible(true);
+				label_1.setVisible(true);
+				label.setVisible(true);
+				comboBox.setVisible(true);
+				patient_name=textField.getText();
+				
+				}
+				
+				if(x==3){//登陆失败
+					lblNewLabel_2.setVisible(true);
+					lblNewLabel_2.setText("密码错误");
+					}
+				
+				else if(x==2){//登陆失败
+					lblNewLabel_2.setVisible(true);
+					lblNewLabel_2.setText("用户名不存在");
+					}
+				
+				System.out.println(x);
+				
+			}
+		});
+		btnNewButton.setPreferredSize(new Dimension(0, 0));
+		btnNewButton.setFont(new Font("宋体", Font.PLAIN, 17));
+		btnNewButton.setForeground(new Color(255, 0, 51));
+		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+		btnNewButton.setBackground(new Color(255, 255, 255));
+		btnNewButton.setBounds(454, 423, 68, 27);
+		frame.getContentPane().add(btnNewButton);
+		
+		
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {//注册
+				int x=0;
+				 try {
+					x=Client.addUser(textField.getText(), String.valueOf(passwordField.getPassword()), 2, 1); //病人类型为2，注册类型号为1
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+				 if(x==1){
+				 lblNewLabel_2.setVisible(true);
+					lblNewLabel_2.setText("注册成功");}
+				 if(x==4){
+					 lblNewLabel_2.setVisible(true);
+						lblNewLabel_2.setText("用户名已存在");}
+				
+			}
+		});
+		btnNewButton_1.setForeground(new Color(255, 0, 0));
+		btnNewButton_1.setFont(new Font("宋体", Font.PLAIN, 17));
+		btnNewButton_1.setBackground(new Color(255, 255, 255));
+		btnNewButton_1.setBounds(358, 423, 68, 27);
+		frame.getContentPane().add(btnNewButton_1);
+		
+		
+		lblNewLabel_2.setVisible(false);
+		lblNewLabel_2.setForeground(Color.RED);
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setFont(new Font("宋体", Font.PLAIN, 26));
+		lblNewLabel_2.setBounds(256, 294, 343, 42);
+		frame.getContentPane().add(lblNewLabel_2);
+		
+		
+		
+		lblNewLabel.setBounds(0, 0, 782, 553);
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\liujianlong\\Desktop\\\u5BA2\u6237\u7AEF\\image\\2.jpg"));
+		frame.getContentPane().add(lblNewLabel);
+		
+		JPanel panel = new JPanel();
+		panel.setVisible(false);
+		panel.setBackground(Color.WHITE);
+		panel.setBounds(41, 29, 677, 101);
+		frame.getContentPane().add(panel);
+		
+		
+		label.setVisible(false);
+		label.setFont(new Font("宋体", Font.PLAIN, 18));
+		label.setBounds(367, 294, 22, 18);
+		frame.getContentPane().add(label);
+		
+		
+		comboBox.setVisible(false);
+		comboBox.setBorder(UIManager.getBorder("ComboBox.border"));
+		comboBox.setBackground(Color.WHITE);
+		comboBox.setForeground(Color.BLACK);
+		comboBox.setFont(new Font("宋体", Font.PLAIN, 17));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"\u5185\u79D1", "\u5916\u79D1", "\u513F\u79D1", "\u5987\u4EA7\u79D1", "\u4E94\u5B98\u79D1", "\u76AE\u80A4\u79D1", "\u4F20\u67D3\u75C5\u79D1", "\u809B\u80A0\u79D1"}));
+		comboBox.setBounds(326, 238, 240, 33);
+		frame.getContentPane().add(comboBox);
+		
+		
+		label_1.setVisible(false);
+		label_1.setFont(new Font("宋体", Font.PLAIN, 18));
+		label_1.setBounds(449, 294, 22, 18);
+		frame.getContentPane().add(label_1);
+		
+		textField_3.setVisible(false);
+		textField_3.setFont(new Font("宋体", Font.PLAIN, 17));
+		textField_3.setBounds(490, 294, 36, 24);
+		frame.getContentPane().add(textField_3);
+		textField_3.setColumns(10);
+		
+		textField_1.setVisible(false);	
+		textField_1.setFont(new Font("宋体", Font.PLAIN, 17));
+		textField_1.setBounds(326, 291, 36, 24);
+		frame.getContentPane().add(textField_1);
+		textField_1.setColumns(10);
+		
+		textField_2.setVisible(false);
+		textField_2.setFont(new Font("宋体", Font.PLAIN, 17));
+		textField_2.setBounds(408, 293, 36, 24);
+		frame.getContentPane().add(textField_2);
+		textField_2.setColumns(10);
+		
+		
+		lblNewLabel_4.setVisible(false);
+		lblNewLabel_4.setFont(new Font("宋体", Font.PLAIN, 18));
+		lblNewLabel_4.setBounds(531, 296, 22, 18);
+		frame.getContentPane().add(lblNewLabel_4);
+		
+		
+	
+		button.setVisible(false);
+		button.setBackground(new Color(255, 255, 255));
+		button.setForeground(new Color(255, 0, 0));
+		button.setFont(new Font("宋体", Font.PLAIN, 17));
+		button.setBounds(443, 347, 110, 27);
+		frame.getContentPane().add(button);
+		lblNewLabel_5.setFont(new Font("宋体", Font.PLAIN, 18));
+		lblNewLabel_5.setBounds(225, 294, 90, 18);
+		frame.getContentPane().add(lblNewLabel_5);
+		
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {//预约
+				int x=0;   
+				int order_time=Integer.parseInt(textField_1.getText())*24*60+Integer.parseInt(textField_2.getText())*60+Integer.parseInt(textField_3.getText());
+				
+				
+				
+				int now=Client.time();
+				if(now>order_time){
+					 lblNewLabel_7.setVisible(true); 
+					 lblNewLabel_7.setText("预约日期应大于当前日期");}
+				
+				else if(Integer.parseInt(textField_1.getText())>31||Integer.parseInt(textField_1.getText())<1){
+					 lblNewLabel_7.setVisible(true); 
+					 lblNewLabel_7.setText("预约日期应在1-31号！");}
+				
+				else if(Integer.parseInt(textField_2.getText())>22||Integer.parseInt(textField_2.getText())<10){
+					 lblNewLabel_7.setVisible(true); 
+					 lblNewLabel_7.setText("预约时间应在10-22点间！");}
+				
+				else if(Integer.parseInt(textField_3.getText())>60||Integer.parseInt(textField_3.getText())<0){
+					 lblNewLabel_7.setVisible(true); 
+					 lblNewLabel_7.setText("分钟应在0-60分间！");}
+				
+				else{				
+				       try {
+					         x=Client.order(patient_name, 1, order_time, 2); //病人类型为2，注册类型号为1
+				           } 
+				       catch (IOException e) {
+					                          // TODO Auto-generated catch block
+					                            e.printStackTrace();
+				                             } 
+				     }
+				
+			}
+		});
+		
+		
+		lblNewLabel_6.setVisible(false);
+		lblNewLabel_6.setFont(new Font("宋体", Font.PLAIN, 18));
+		lblNewLabel_6.setBounds(225, 246, 90, 18);
+		frame.getContentPane().add(lblNewLabel_6);
+		
+		
+		lblNewLabel_7.setVisible(false);
+		lblNewLabel_7.setForeground(new Color(255, 0, 0));
+		lblNewLabel_7.setFont(new Font("宋体", Font.PLAIN, 26));
+		lblNewLabel_7.setBounds(269, 415, 253, 42);
+		frame.getContentPane().add(lblNewLabel_7);
+		
+		
+		lblNewLabel_8.setVisible(false);
+		lblNewLabel_8.setIcon(new ImageIcon("C:\\Users\\liujianlong\\Desktop\\\u5BA2\u6237\u7AEF\\image\\6.jpg"));
+		lblNewLabel_8.setBounds(536, 349, 232, 191);
+		frame.getContentPane().add(lblNewLabel_8);
+		
+		JLabel lblNewLabel_3 = new JLabel("");
+		lblNewLabel_3.setIcon(new ImageIcon("C:\\Users\\liujianlong\\Desktop\\\u5BA2\u6237\u7AEF\\image\\5.jpg"));
+		lblNewLabel_3.setBounds(0, 0, 782, 553);
+		frame.getContentPane().add(lblNewLabel_3);
+		
+		
+	}
+}

@@ -1,0 +1,68 @@
+package hospital;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.sql.Connection;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+import java.util.Date;
+
+public class doctor {
+	
+	public int room;//科室
+	 public static 	String line[]=new String[20];//病人队列
+	 public static int time(){	       
+		 Date now = new Date(); 
+		 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");//可以方便地修改日期格式
+		 String hehe = dateFormat.format( now ); 
+		 System.out.println(hehe); 
+		 Calendar c = Calendar.getInstance();//可以对每个时间域单独修改
+		 int year = c.get(Calendar.YEAR); 
+		 int month = c.get(Calendar.MONTH); 
+		 int date = c.get(Calendar.DATE); 
+		 int hour = c.get(Calendar.HOUR_OF_DAY); 
+		 int minute = c.get(Calendar.MINUTE); 
+		 int second = c.get(Calendar.SECOND); 
+		 return   date*24*60+hour*60+minute ;
+		 }
+
+public static int line(String patientId,int order,int order_time){//病人排队    病人                                                        //号，0不预约，1预约，  order_time 预约时间 day*24*60+hour*60+minute
+		
+	int x=0;
+		 int i=0;
+         if(order==1){
+                       int now=time();
+                       if(order_time-now<60){//预约时间在一小时内
+                        for (i = 20 - 1; i > 0; i--)  //排队最多20人
+                      {line[i] = line[i - 1];}          
+                       line[0]=patientId;//排在首位}
+                       System.out.println("排队成功,排在第1位");
+                       return 1;	
+
+                      }}
+
+         else{  for( i=0;line[i]!=null;i++){
+                line[i]=patientId; break;}
+		        System.out.println("排队成功,排在第"+i+1+"位");	}	 
+		         return i+1;	
+}
+	
+	  public static String kaiYao(int patientID,int j,String name,int numble){//医生开药   j=1药品全称 ，j=2拼音
+		 String k;
+		  hostpitalDataBase db=null;
+			System.out.print(patientID+"患者开药中 …………");
+         	 name=name.trim();
+               k= db.DBPatientMedicine(name,patientID,j,numble);   
+               return k;
+	  
+	  }
+	 
+	
+
+}
+	  
+
+

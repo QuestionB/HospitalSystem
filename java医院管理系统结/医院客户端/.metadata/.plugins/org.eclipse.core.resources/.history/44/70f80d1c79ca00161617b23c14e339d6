@@ -1,0 +1,57 @@
+package hospital;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JButton;
+import java.awt.BorderLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Rectangle;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+
+public class hospital_windows {
+
+	private JFrame frame;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					hospital_windows window = new hospital_windows();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public hospital_windows() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(new Rectangle(600, 200, 800, 600));
+		frame.setBounds(600, 200, 800, 600);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\liujianlong\\Desktop\\\u533B\u751F\u5BA2\u6237\u7AEF\\image\\1.jpg"));
+		lblNewLabel.setBounds(new Rectangle(0, 0, 782, 553));
+		lblNewLabel.setBounds(0, 0, 782, 553);
+		frame.getContentPane().add(lblNewLabel, BorderLayout.NORTH);
+	}
+
+}

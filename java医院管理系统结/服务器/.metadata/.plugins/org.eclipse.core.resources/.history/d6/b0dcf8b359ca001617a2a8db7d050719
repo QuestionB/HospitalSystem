@@ -1,0 +1,63 @@
+package hospital;
+
+import java.util.Scanner;
+
+public class patient {
+
+    public  int id;
+	public 	String patientName;//姓名
+	public int age;//年龄
+	public String sex;//性别
+	public int order;//预约
+	public int fee;//费用
+	public int pay;//付款
+	public int room;//病科：皮肤科、五官科、五脏科、……
+	
+	public int getFee(){return fee;}
+	public String getName(){return patientName;}
+	public int getOrder(){return order;}
+	
+	
+    public void changeOrder(int x){order=x;}
+    public void changeFee(int money){fee=fee+money;}
+    
+    
+    
+    public static int addUser(String infomation) {//增加用户   infomation=账号，密码，类型,服务器类型号（此处无用）
+    	
+    	
+		 String strs[]=infomation.split(",");      //strs[0]=账号  ，strs[1]=密码，strs[2]=类型
+	        
+               String name=strs[0];		
+	        String password=strs[1];
+	       int Numble=Integer.parseInt(strs[2]);
+	        hostpitalDataBase db=null;
+		    int x;	 		
+		 	x=db.DBAddUsers(name, password,Numble);
+	       return x;
+	       
+	    }
+
+        public static int order(String infomation) {//病人预约   infomation=patientId,int order，int order_time,服务器类型号（此处无用）
+                  
+                  
+		 String strs[]=infomation.split(",");      //strs[0]=账号  ，strs[1]=预约，strs[2]=预约时间
+		
+			
+			
+			String name=strs[0];
+		
+	        int order=Integer.parseInt(strs[1]);
+	        int order_time=Integer.parseInt(strs[2]);
+	     doctor doc=null;
+		    int x,y;	
+		    hostpitalDataBase db=null; 		
+		 	y=db.DBChange("987987",1);System.out.println("ok");
+		    name=name.trim();  
+		    y=
+		 	x=doc.line(name, order,order_time);
+              return x;
+
+          }
+	
+}

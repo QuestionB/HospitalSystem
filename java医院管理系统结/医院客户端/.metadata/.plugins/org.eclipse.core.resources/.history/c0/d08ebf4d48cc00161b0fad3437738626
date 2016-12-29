@@ -1,0 +1,15 @@
+package hospital;
+
+class MyThread extends  Thread{
+	String x;
+	public MyThread(String name ){
+		
+		x=name;
+	}
+	public void run(){
+		String info;
+		Medicine_login.;
+		System.out.print("这是子线程！,名字是"+this.x+"\n");
+	}
+	
+}
